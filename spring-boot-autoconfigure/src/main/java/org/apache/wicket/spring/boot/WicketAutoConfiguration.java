@@ -28,7 +28,8 @@ public class WicketAutoConfiguration {
         return new ServletContextInitializer() {
             @Override
             public void onStartup(ServletContext servletContext) throws ServletException {
-                servletContext.setInitParameter("wicket.configuration", wicketProperties.getConfiguration().name());
+                servletContext.setInitParameter("wicket.configuration",
+                        wicketProperties.getConfiguration().name());
             }
         };
     }

@@ -12,8 +12,8 @@ public class BootWebApplicationFactory extends SpringWebApplicationFactory {
     private IApplicationListener iApplicationListener = new IApplicationListener() {
         @Override
         public void onAfterInitialized(Application application) {
-            application.getComponentInstantiationListeners().add(new SpringComponentInjector(
-                    (WebApplication) application));
+            application.getComponentInstantiationListeners().add(
+                    new SpringComponentInjector((WebApplication) application));
         }
 
         @Override
@@ -24,23 +24,8 @@ public class BootWebApplicationFactory extends SpringWebApplicationFactory {
 
     @Override
     public WebApplication createApplication(WicketFilter filter) {
-        WebApplication webApplication =super.createApplication(filter);
+        WebApplication webApplication = super.createApplication(filter);
         webApplication.getApplicationListeners().add(this.iApplicationListener);
         return webApplication;
     }
-/*   public WebApplication createApplication(WicketFilter filter) {
-        final String applicationClassName = filter.getFilterConfig().getInitParameter(
-                APP_CLASS_PARAM);
-
-        WebApplication webApplication = super.createApplication(applicationClassName);
-        webApplication.getApplicationListeners().add(this.iApplicationListener);
-        return webApplication;
-    }
-
-    protected WebApplication createApplication(final String applicationClassName) {
-        WebApplication webApplication = super.createApplication(applicationClassName);
-        webApplication.getApplicationListeners().add(this.iApplicationListener);
-        return webApplication;
-    }*/
-
 }

@@ -42,11 +42,7 @@ public class WicketAutoConfiguration {
         filter.setFilterPath(contextPath);
         registration.setFilter(filter);
         registration.setName(WICKET_FILTER_NAME);
-//
-//        registration.addInitParameter(ContextParamWebApplicationFactory.APP_CLASS_PARAM, MyWebApplication.class
-//                        .getName());
         registration.addInitParameter(WicketFilter.APP_FACT_PARAM, BootWebApplicationFactory.class.getName());
-
         return registration;
     }
 

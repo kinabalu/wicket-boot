@@ -1,9 +1,7 @@
 package demo;
 
-import org.apache.wicket.spring.boot.WicketProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
 public class Application {

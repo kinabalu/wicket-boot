@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "spring.wicket", ignoreUnknownFields = true)
 public class WicketProperties {
 
-    private String contextPath  = "/wicket/*";
+    private String contextPath = "/wicket/*";
 
     private org.apache.wicket.RuntimeConfigurationType configuration =
             RuntimeConfigurationType.DEVELOPMENT;

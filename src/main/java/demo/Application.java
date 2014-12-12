@@ -1,11 +1,8 @@
 package demo;
 
-import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WicketFilter;
-import org.apache.wicket.protocol.http.servlet.WicketSessionFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -36,31 +33,36 @@ class Test {
 
 @Configuration
 class WicketServletConfiguration {
+
     @Bean
-    @ConditionalOnMissingBean
+    @ConditionalOnMissingBean(name = "wicketFilter")
     public FilterRegistrationBean wicketFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new WicketFilter());
+
+        WicketFilter filter = new WicketFilter();
+
+
+        registration.setFilter(filter);
         registration.setName("wicketFilter");
         registration.addInitParameter("applicationClassName", MyWebApplication.class.getName());
-        registration.setUrlPatterns(
-                Arrays.asList(this.wicketPath));
+        registration.setUrlPatterns( Arrays.asList(this.wicketPath));
         return registration;
     }
 
-
+/*
     @Bean
     @ConditionalOnMissingBean
     public FilterRegistrationBean wicketSessionFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new WicketSessionFilter());
         registration.setName("wicketSessionFilter");
+        registration.setUrlPatterns();
         registration.setUrlPatterns(Arrays.asList(this.wicketPath));
         registration.addInitParameter("filterName", "wicketFilter");
         return registration;
-    }
+    }*/
 
-    private String wicketPath = "/*";
+    private String wicketPath = "/wicket/*";
 }
 
 class HelloWorld extends WebPage {

@@ -7,13 +7,12 @@ import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WicketFilter;
 import org.apache.wicket.protocol.http.servlet.WicketSessionFilter;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
@@ -27,6 +26,14 @@ public class Application {
 
 }
 
+@RestController
+class Test {
+    @RequestMapping("/foo")
+    String hi() {
+        return "Hi";
+    }
+}
+
 @Configuration
 class WicketServletConfiguration {
     @Bean
@@ -36,7 +43,8 @@ class WicketServletConfiguration {
         registration.setFilter(new WicketFilter());
         registration.setName("wicketFilter");
         registration.addInitParameter("applicationClassName", MyWebApplication.class.getName());
-        registration.setUrlPatterns(Arrays.asList("/wicket/*"));
+        registration.setUrlPatterns(
+                Arrays.asList(this.wicketPath));
         return registration;
     }
 
@@ -47,17 +55,12 @@ class WicketServletConfiguration {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new WicketSessionFilter());
         registration.setName("wicketSessionFilter");
+        registration.setUrlPatterns(Arrays.asList(this.wicketPath));
         registration.addInitParameter("filterName", "wicketFilter");
         return registration;
     }
-}
 
-class MyWebApplication extends WebApplication {
-
-    @Override
-    public Class<? extends Page> getHomePage() {
-        return HelloWorld.class;
-    }
+    private String wicketPath = "/*";
 }
 
 class HelloWorld extends WebPage {

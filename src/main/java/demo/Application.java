@@ -41,7 +41,7 @@ class WicketServletConfiguration {
 
         WicketFilter filter = new WicketFilter();
 
-
+        filter.setFilterPath(wicketPath);
         registration.setFilter(filter);
         registration.setName("wicketFilter");
         registration.addInitParameter("applicationClassName", MyWebApplication.class.getName());
@@ -63,12 +63,6 @@ class WicketServletConfiguration {
     }*/
 
     private String wicketPath = "/wicket/*";
-}
-
-class HelloWorld extends WebPage {
-    public HelloWorld() {
-        add(new Label("message", "Hello World!"));
-    }
 }
 
 /*

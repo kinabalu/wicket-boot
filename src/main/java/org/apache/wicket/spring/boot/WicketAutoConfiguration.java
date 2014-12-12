@@ -1,7 +1,9 @@
 package org.apache.wicket.spring.boot;
 
+import demo.MyWebApplication;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.apache.wicket.protocol.http.ContextParamWebApplicationFactory;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WicketFilter;
 import org.apache.wicket.spring.SpringWebApplicationFactory;
@@ -52,8 +54,11 @@ public class WicketAutoConfiguration {
         registration.setFilter(filter);
         registration.setName(WICKET_FILTER_NAME);
 
+        registration.addInitParameter(ContextParamWebApplicationFactory.APP_CLASS_PARAM, MyWebApplication.class
+                        .getName());
         // - use a SpringWebApplicationFactory subclass and then let that discover the WebApplication from a Spring context
-        String springAppFactoryClassName = WicketAutoConfiguration.BootWebApplicationFactory.class.getName();
+        String springAppFactoryClassName = SpringContextParamWebApplicationFactory.class
+                .getName();
         registration.addInitParameter(WicketFilter.APP_FACT_PARAM, springAppFactoryClassName);
 
         return registration;

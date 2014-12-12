@@ -4,5 +4,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Foo {
-    public String message = "Hi";
+    public String message = "Hi, you rock";
 }

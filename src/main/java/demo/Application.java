@@ -23,14 +23,6 @@ public class Application {
 
 }
 
-@RestController
-class Test {
-    @RequestMapping("/foo")
-    String hi() {
-        return "Hi";
-    }
-}
-
 @Configuration
 class WicketServletConfiguration {
 
